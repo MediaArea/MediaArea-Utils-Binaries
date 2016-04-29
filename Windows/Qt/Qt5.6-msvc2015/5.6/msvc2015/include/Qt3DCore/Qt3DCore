@@ -1,0 +1,24 @@
+#ifndef QT_QT3DCORE_MODULE_H
+#define QT_QT3DCORE_MODULE_H
+#include <Qt3DCore/Qt3DCoreDepends>
+#include "qbackendnodefactory.h"
+#include "qbackendscenepropertychange.h"
+#include "qray3d.h"
+#include "qscenechange.h"
+#include "qsceneobserverinterface.h"
+#include "qscenepropertychange.h"
+#include "qabstractaspect.h"
+#include "qaspectengine.h"
+#include "qcamera.h"
+#include "qcameralens.h"
+#include "qaspectjob.h"
+#include "qaspectjobproviderinterface.h"
+#include "qabstractnodefactory.h"
+#include "qbackendnode.h"
+#include "qcomponent.h"
+#include "qentity.h"
+#include "qnode.h"
+#include "qnodeid.h"
+#include "qtransform.h"
+#include "qt3dcoreversion.h"
+#endif
