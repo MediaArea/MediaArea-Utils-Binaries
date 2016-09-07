@@ -2,7 +2,7 @@
 
 - Download and unzip qt-everywhere-opensource-src-\<version\>.zip archive.
 
-- In the  qt-everywhere-opensource-src\-<version\> directory run:
+- In the  qt-everywhere-opensource-src-\<version\> directory run:
 
 ```
 cd qtbase
@@ -11,7 +11,7 @@ configure -prefix x86 -release -opensource -confirm-license -static -static-runt
 nmake
 nmake install
 
-nmale clean
+nmake clean
 nmake confclean
 
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
@@ -20,7 +20,7 @@ nmake
 nmake install
 ```
 
-Create files qtbase/x86/bin/qt.conf and qtbase/x64/bin/qt.conf with this content:
+- Create files qtbase/x86/bin/qt.conf and qtbase/x64/bin/qt.conf with this content:
 ```
 [Paths]
 Prefix=..
