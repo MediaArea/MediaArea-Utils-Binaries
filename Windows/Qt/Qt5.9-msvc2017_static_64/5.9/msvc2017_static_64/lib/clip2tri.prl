@@ -1,0 +1,5 @@
+QMAKE_PRL_BUILD_DIR = C:/Programmation/qt-everywhere-opensource-src-5.9.2/qtlocation/src/3rdparty/clip2tri
+QMAKE_PRO_INPUT = clip2tri.pro
+QMAKE_PRL_TARGET = clip2tri.lib
+QMAKE_PRL_CONFIG = incredibuild_xge lex yacc exceptions depend_includepath testcase_targets import_plugins import_qpa_plugin windows qt_build_extra file_copies qmake_use release link_prl incremental flat precompile_header autogen_precompile_source debug_and_release embed_manifest_dll embed_manifest_exe release no_plugin_manifest static static_runtime win32 msvc copy_dir_files compile_examples largefile msvc_mp precompile_header sse2 sse3 prefix_build force_independent utf8_source create_prl link_prl prepare_docs qt_docs_targets no_private_qt_headers_warning QTDIR_build qt_example_installs testcase_exceptions done_config_gypsy done_config_winrt release ReleaseBuild Release build_pass c++11 staticlib exceptions warn_off optimize_full c++11 strict_c++ c++11 release ReleaseBuild Release build_pass have_target static staticlib exclusive_builds no_autoqmake
+QMAKE_PRL_LIBS = -L$$[QT_INSTALL_LIBS] $$[QT_INSTALL_LIBS]\\poly2tri.lib $$[QT_INSTALL_LIBS]\\clipper.lib
