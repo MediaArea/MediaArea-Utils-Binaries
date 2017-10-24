@@ -1,0 +1,14 @@
+QT_ARCH = i386
+QT_BUILDABI = i386-little_endian-ilp32
+QT.global.enabled_features = c++11 concurrent static
+QT.global.disabled_features = cross_compile framework rpath shared appstore-compliant debug_and_release simulator_and_device build_all c++14 c++1z force_asserts pkg-config separate_debug_info
+CONFIG += release incredibuild_xge no_plugin_manifest static static_runtime
+QT_CONFIG += release c++11 concurrent no-pkg-config no-qml-debug static static_runtime stl
+QT_VERSION = 5.9.2
+QT_MAJOR_VERSION = 5
+QT_MINOR_VERSION = 9
+QT_PATCH_VERSION = 2
+QT_MSVC_MAJOR_VERSION = 19
+QT_MSVC_MINOR_VERSION = 11
+QT_MSVC_PATCH_VERSION = 25508
+QT_EDITION = OpenSource
