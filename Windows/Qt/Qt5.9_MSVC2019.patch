@@ -1,0 +1,126 @@
+From be9380e5aabf3bce374aba41e045a901bcdd4512 Mon Sep 17 00:00:00 2001
+From: Maxime Gervais <gervais.maxime@gmail.com>
+Date: Thu, 15 Apr 2021 00:45:46 +0200
+Subject: [PATCH] Fix for Qt5.9 with 32 bits MSVC 2019 compiler
+
+Signed-off-by: Maxime Gervais <gervais.maxime@gmail.com>
+---
+ .../5.9/msvc2017/include/QtCore/qalgorithms.h          | 10 ++++++----
+ .../5.9/msvc2017_static/include/QtCore/qalgorithms.h   | 10 ++++++----
+ 2 files changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/Windows/Qt/Qt5.9-msvc2017/5.9/msvc2017/include/QtCore/qalgorithms.h b/Windows/Qt/Qt5.9-msvc2017/5.9/msvc2017/include/QtCore/qalgorithms.h
+index b6b45ab4..00935e9a 100644
+--- a/Windows/Qt/Qt5.9-msvc2017/5.9/msvc2017/include/QtCore/qalgorithms.h
++++ b/Windows/Qt/Qt5.9-msvc2017/5.9/msvc2017/include/QtCore/qalgorithms.h
+@@ -590,6 +590,7 @@ Q_DECL_CONSTEXPR Q_ALWAYS_INLINE uint qt_builtin_popcountll(quint64 v) Q_DECL_NO
+ }
+ #elif defined(Q_CC_MSVC) && !defined(Q_OS_WINCE) && !defined(Q_PROCESSOR_ARM)
+ #define QT_POPCOUNT_CONSTEXPR
++#define QT_POPCOUNT_RELAXED_CONSTEXPR
+ #define QT_HAS_BUILTIN_CTZ
+ Q_ALWAYS_INLINE unsigned long qt_builtin_ctz(quint32 val)
+ {
+@@ -676,6 +677,7 @@ Q_ALWAYS_INLINE uint qt_builtin_popcountll(quint64 v) Q_DECL_NOTHROW
+ 
+ #ifndef QT_POPCOUNT_CONSTEXPR
+ #define QT_POPCOUNT_CONSTEXPR Q_DECL_CONSTEXPR
++#define QT_POPCOUNT_RELAXED_CONSTEXPR Q_DECL_RELAXED_CONSTEXPR
+ #endif
+ 
+ } //namespace QAlgorithmsPrivate
+@@ -819,7 +821,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint32 v) Q_DECL_NOT
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint8 v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint8 v) Q_DECL_NOTHROW
+ {
+ #if defined(QT_HAS_BUILTIN_CLZ)
+     return v ? QAlgorithmsPrivate::qt_builtin_clz(v)-24U : 8U;
+@@ -831,7 +833,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint8 v) Q_DECL_NOTH
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint16 v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint16 v) Q_DECL_NOTHROW
+ {
+ #if defined(QT_HAS_BUILTIN_CLZS)
+     return v ? QAlgorithmsPrivate::qt_builtin_clzs(v) : 16U;
+@@ -844,7 +846,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint16 v) Q_DECL_NOT
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint64 v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint64 v) Q_DECL_NOTHROW
+ {
+ #if defined(QT_HAS_BUILTIN_CLZLL)
+     return v ? QAlgorithmsPrivate::qt_builtin_clzll(v) : 64U;
+@@ -859,7 +861,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint64 v) Q_DECL_NOT
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(unsigned long v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(unsigned long v) Q_DECL_NOTHROW
+ {
+     return qCountLeadingZeroBits(QIntegerForSizeof<long>::Unsigned(v));
+ }
+diff --git a/Windows/Qt/Qt5.9-msvc2017_static/5.9/msvc2017_static/include/QtCore/qalgorithms.h b/Windows/Qt/Qt5.9-msvc2017_static/5.9/msvc2017_static/include/QtCore/qalgorithms.h
+index b6b45ab4..00935e9a 100644
+--- a/Windows/Qt/Qt5.9-msvc2017_static/5.9/msvc2017_static/include/QtCore/qalgorithms.h
++++ b/Windows/Qt/Qt5.9-msvc2017_static/5.9/msvc2017_static/include/QtCore/qalgorithms.h
+@@ -590,6 +590,7 @@ Q_DECL_CONSTEXPR Q_ALWAYS_INLINE uint qt_builtin_popcountll(quint64 v) Q_DECL_NO
+ }
+ #elif defined(Q_CC_MSVC) && !defined(Q_OS_WINCE) && !defined(Q_PROCESSOR_ARM)
+ #define QT_POPCOUNT_CONSTEXPR
++#define QT_POPCOUNT_RELAXED_CONSTEXPR
+ #define QT_HAS_BUILTIN_CTZ
+ Q_ALWAYS_INLINE unsigned long qt_builtin_ctz(quint32 val)
+ {
+@@ -676,6 +677,7 @@ Q_ALWAYS_INLINE uint qt_builtin_popcountll(quint64 v) Q_DECL_NOTHROW
+ 
+ #ifndef QT_POPCOUNT_CONSTEXPR
+ #define QT_POPCOUNT_CONSTEXPR Q_DECL_CONSTEXPR
++#define QT_POPCOUNT_RELAXED_CONSTEXPR Q_DECL_RELAXED_CONSTEXPR
+ #endif
+ 
+ } //namespace QAlgorithmsPrivate
+@@ -819,7 +821,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint32 v) Q_DECL_NOT
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint8 v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint8 v) Q_DECL_NOTHROW
+ {
+ #if defined(QT_HAS_BUILTIN_CLZ)
+     return v ? QAlgorithmsPrivate::qt_builtin_clz(v)-24U : 8U;
+@@ -831,7 +833,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint8 v) Q_DECL_NOTH
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint16 v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint16 v) Q_DECL_NOTHROW
+ {
+ #if defined(QT_HAS_BUILTIN_CLZS)
+     return v ? QAlgorithmsPrivate::qt_builtin_clzs(v) : 16U;
+@@ -844,7 +846,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint16 v) Q_DECL_NOT
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint64 v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint64 v) Q_DECL_NOTHROW
+ {
+ #if defined(QT_HAS_BUILTIN_CLZLL)
+     return v ? QAlgorithmsPrivate::qt_builtin_clzll(v) : 64U;
+@@ -859,7 +861,7 @@ Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(quint64 v) Q_DECL_NOT
+ #endif
+ }
+ 
+-Q_DECL_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(unsigned long v) Q_DECL_NOTHROW
++QT_POPCOUNT_RELAXED_CONSTEXPR inline uint qCountLeadingZeroBits(unsigned long v) Q_DECL_NOTHROW
+ {
+     return qCountLeadingZeroBits(QIntegerForSizeof<long>::Unsigned(v));
+ }
+-- 
+2.29.2
+
